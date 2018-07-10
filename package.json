@@ -1,0 +1,25 @@
+{
+  "name": "@autoit-gui-skeleton/ags-wrapper-json",
+  "version": "1.0.0",
+  "description": "A simple *wrapper* of library [JSON.au3](https://www.autoitscript.com/forum/topic/148114-a-non-strict-json-udf-jsmn/) created by Ward for simplifiy handling dependencies of an [AGS project](https://v20100v.github.io/autoit-gui-skeleton/).",
+  "AGS": {
+    "framework": {
+      "version": "1.0.0"
+    },
+    "AutoIt": {
+      "version": "3.3.14.5"
+    }
+  },
+  "author": "20100 <vb20100bv@gmail.com> (https://github.com/v20100v)",
+  "license": "MIT",
+  "keywords": [
+    "AGS",
+    "AutoIt",
+    "AutoItGUISkeleton",
+    "AutoIt GUI Skeleton",
+    "AGS wrapper",
+    "AGS wrapper JSON",
+    "JSON"
+  ],
+  "homepage": "https://v20100v.github.io/autoit-gui-skeleton/"
+}
