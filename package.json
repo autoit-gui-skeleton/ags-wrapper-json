@@ -21,5 +21,9 @@
     "AGS wrapper JSON",
     "JSON"
   ],
-  "homepage": "https://v20100v.github.io/autoit-gui-skeleton/"
+  "homepage": "https://v20100v.github.io/autoit-gui-skeleton/",
+  "repository": {
+    "url": "https://github.com/autoit-gui-skeleton/ags-wrapper-json.git",
+    "type": "git"
+  }
 }

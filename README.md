@@ -1,7 +1,7 @@
 AGS-wrapper-json
 ================
 
-> A simple *wrapper* of library [JSON.au3](https://www.autoitscript.com/forum/topic/148114-a-non-strict-json-udf-jsmn/) created by Ward for simplifiy handling dependencies of an AutoIt project built with [AGS](https://v20100v.github.io/autoit-gui-skeleton/).
+> A simple *wrapper* of the library [JSON.au3](https://www.autoitscript.com/forum/topic/148114-a-non-strict-json-udf-jsmn/), created by Ward, for simplifiy handling dependencies of an AutoIt project built with [AGS](https://v20100v.github.io/autoit-gui-skeleton/).
 
 
 
@@ -9,13 +9,13 @@ AGS-wrapper-json
 
 ## Install
 
-We assume that you have already install [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/lang/en/), for example with [Chocolatey](https://chocolatey.org/). We recommend you to install AGS-wrapper-json with Yarn. Just type in the root folder of your project where the `package.json` is saved :
+We assume that you have already install [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/lang/en/), for example with [Chocolatey](https://chocolatey.org/). We recommend you to install it with Yarn. To do this, just type in the root folder of your project where the `package.json` is saved :
 
 ```
 λ  yarn add @autoit-gui-skeleton/ags-wrapper-json --modules-folder vendor
 ```
 
-The package is installed into the `./vendor` directory, and to use it in your AutoIt program, you need to include this library with:
+This package is installed into the `./vendor` directory. To use it in your AutoIt program, you need to include this library with this instruction:
 
 ```autoit
 #include 'vendor/@autoit-gui-skeleton/ags-wrapper-json/JSON.au3'
