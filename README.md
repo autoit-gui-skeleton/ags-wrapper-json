@@ -1,14 +1,14 @@
 AGS-wrapper-json
 ================
 
-> In order to work with JSON, AGS provides a simple *wrapper* [@autoit-gui-skeleton/ags-wrapper-json](https://www.npmjs.com/package/@autoit-gui-skeleton/ags-wrapper-json) of the library JSON.au3, created by Ward. This library allows us to decode/encode JSON with the minimalistic JSON parser [jsmn](https://zserge.com/jsmn.html).
+> In order to work with JSON, [AGS framework](https://autoit-gui-skeleton.github.io/)  provides this simple *wrapper* [@autoit-gui-skeleton/ags-wrapper-json](https://www.npmjs.com/package/@autoit-gui-skeleton/ags-wrapper-json) of the library JSON.au3, created by Ward. This library allows us to decode/encode JSON with the minimalistic JSON parser [jsmn](https://zserge.com/jsmn.html).
 
 
 <br/>
 
 ## How to install AGS-wrapper-json ?
 
-In order to simplify the management of the dependencies of an AutoIt project built with AGS framework, we have diverted form its initial use the dependency manager npm, and its evolution Yarn. This allows us to manage the dependencies of an AGS project with other AutoIt libraries, and to share these AutoIt packages from the npmjs.org repository. All AGS packages hosted in this npmjs repository belong to [@autoit-gui-skeleton organization](https://www.npmjs.com/search?q=autoit-gui-skeleton)
+In order to simplify the management of the dependencies of an AutoIt project built with AGS framework, we have diverted form its initial use the dependency manager npm, and its evolution Yarn. This allows us to manage the dependencies of an AGS project with other AutoIt libraries, and to share these AutoIt packages from the npmjs.org repository. All AGS packages hosted in this npmjs repository belong to [@autoit-gui-skeleton organization](https://www.npmjs.com/org/autoit-gui-skeleton)
 
 We assume that you have already install [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/lang/en/), for example with [Chocolatey](https://chocolatey.org/), so to install AGS-wrapper-json, just type in the root folder of your project where the `package.json` is saved :
 
