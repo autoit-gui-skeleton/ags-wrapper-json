@@ -1,43 +1,51 @@
 AGS-wrapper-json
 ================
 
-> In order to work with JSON, [AGS framework](https://autoit-gui-skeleton.github.io/)  provides this simple *wrapper* [@autoit-gui-skeleton/ags-wrapper-json](https://www.npmjs.com/package/@autoit-gui-skeleton/ags-wrapper-json) of the library JSON.au3, created by Ward. This library allows us to decode/encode JSON with the minimalistic JSON parser [jsmn](https://zserge.com/jsmn.html).
+> [AutoIt Gui Skeleton](https://autoit-gui-skeleton.github.io/) package for wrapping the library [JSON.au3](https://www.autoitscript.com/forum/topic/148114-a-non-strict-json-udf-jsmn/) created by [Ward's](https://www.autoitscript.com/forum/profile/10768-ward/). See this package on [npmjs.com](https://www.npmjs.com/package/@autoit-gui-skeleton/ags-wrapper-json/)
+
 
 
 <br/>
 
-## How to install AGS-wrapper-json ?
+## How to install AGS-wrapper-wrapper-json ?
 
-In order to simplify the management of the dependencies of an AutoIt project built with AGS framework, we have diverted form its initial use the dependency manager npm, and its evolution Yarn. This allows us to manage the dependencies of an AGS project with other AutoIt libraries, and to share these AutoIt packages from the npmjs.org repository. All AGS packages hosted in this npmjs repository belong to [@autoit-gui-skeleton organization](https://www.npmjs.com/org/autoit-gui-skeleton)
+We assume that you have already install [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/lang/en/), for example by taking a [Chocolatey](https://chocolatey.org/). AGS framework use it for manage dependencies.
 
-We assume that you have already install [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/lang/en/), for example with [Chocolatey](https://chocolatey.org/), so to install AGS-wrapper-json, just type in the root folder of your project where the `package.json` is saved :
+To add this package into your AutoIt project, just type in the root folder of your AGS project where the `package.json` is stored. You can also modify the `dependencies` property of this json file and use the yarn [install](https://yarnpkg.com/en/docs/usage) command. It is easier to use the add command :
 
 ```
 λ  yarn add @autoit-gui-skeleton/ags-wrapper-json --modules-folder vendor
 ```
 
-All project dependencies, as well as daughter dependencies of parent dependencies, are installed in the `./vendor/@autoit-gui-skeleton/` directory. And after to use it in your AutoIt program, you need to include this library with this instruction:
+The property `dependencies` of the  `package.json` file is updated consequently, and all package dependencies, as well as daughter dependencies of parent dependencies, are installed in the `./vendor/@autoit-gui-skeleton/` directory. Note that with an AGS project, it is not necessary to explicitly write this option `--modules-folder vendor` on the command line, thanks to the `.yarnrc` file stored at the root of the project. Yarn automatically use `.yarnrc` file to add an additional configuration of options.
+
+```
+ #./.yarnrc
+ --modules-folder vendor
+ ```
+
+Finally to use this library in your AutoIt program, you need to include this library in the main program. There is no need for additional configuration to use it.
 
 ```autoit
-#include 'vendor/@autoit-gui-skeleton/ags-wrapper-json/JSON.au3'
+#include './vendor/@autoit-gui-skeleton/ags-wrapper-json/JSON.au3'
 ```
 
 
 
 <br/>
 
-## AGS's vendor directory
+## What is AGS (AutoIt Gui Skeleton) ?
 
-To install AutoIt dependencies in the `./vendor` directory, and not in the default directory of Node.js `./node_modules`, you must add the `--modules-folder vendor` option. We force this choice to avoid any confusion with a Node.js project. 
+[AutoIt Gui Skeleton](https://autoit-gui-skeleton.github.io/) give an environment for developers, that makes it easy to build AutoIt applications. To do this AGS proposes to use conventions and a standardized architecture in order to simplify the code organization, and thus its maintainability. It also gives tools to help developers in recurring tasks specific to software engineering.
 
-Note that with an AGS project, it is not necessary to explicitly write this option on the command line, thanks to the `.yarnrc` file stored at the root of the project. Yarn automatically use this file to add an additional configuration of options.
+> More information about [AGS framework](https://autoit-gui-skeleton.github.io/)
 
-```
- #./.yarnrc 
- --modules-folder vendor
- ```
- 
-So with this file you can run `yarn add @autoit-gui-skeleton/ags-wrapper-json` to install the dependencies directly into the appropriate `./vendor` directory.
+AGS provides a dependency manager for AutoIt library. It uses the Node.js ecosystem and its dependency manager npm and its evolution Yarn. All AGS packages are hosted in npmjs.org repository belong to the [@autoit-gui-skeleton](https://www.npmjs.com/search?q=autoit-gui-skeleton) organization. And in AGS you can find two types of package :
+
+- An **AGS-component** is an AutoIt library, that you can easy use in your AutoIt project built with the AGS framework. It provides some features for application that can be implement without painless.
+- An **AGS-wrapper** is a simple wrapper for an another library created by another team/developer.
+
+> More information about [dependency manager for AutoIt in AGS](https://autoit-gui-skeleton.github.io//2018/07/10/ags_dependencies_manager_for_AutoIt.html)
 
 
 
@@ -45,7 +53,7 @@ So with this file you can run `yarn add @autoit-gui-skeleton/ags-wrapper-json` t
 
 ## How to decode a JSON ?
 
-### Decode a JSON file from local 
+### Decode a JSON file from local
 
 For example, create this json file in your `./assets/DROIDS.json` folder of your AGS project.
 
@@ -103,7 +111,7 @@ Func json_decode_from_file($filePath)
 EndFunc
 ```
 
-According to Ward's documentation. 
+According to Ward's documentation.
 
 > The most JSON data type will be decoded into corresponding AutoIt variable, including 1D array, string, number, true, false, and null. JSON object will be decoded into "Windows Scripting Dictionary Object" retuned from `ObjCreate("Scripting.Dictionary")`. AutoIt build-in functions like IsArray, IsBool, etc. can be used to check the returned data type. But for Object and Null, Json_IsObject() and Json_IsNull() should be used.
 >
@@ -144,7 +152,7 @@ You also can use object help functions. These functions are just warps of `Scrip
 - Json_ObjClear(ByRef $Object)
 
 
-### Work with an object collection, and iterate its items 
+### Work with an object collection, and iterate its items
 
 To iterate values from an array json
 
@@ -158,7 +166,7 @@ If UBound($droids) = 0 Then
     Return SetError(3, 0, "Array attribute 'droids' is empty.")
 EndIf
 
-; Iterate items collection to store values into an array 
+; Iterate items collection to store values into an array
 Local $array[UBound($droids)][3]
 For $i = 0 To UBound($droids) - 1 Step 1
     $array[$i][0] = Json_Get($jsonObject, '.droids' & '[' & $i & '].name')
@@ -182,7 +190,7 @@ Local $Test = Json_Get($Obj, '["test"][1]["foo"]["bar"][2]["foo"]["bar"]') ; "Te
 ```
 
 
-### Decode a JSON file from a remote server 
+### Decode a JSON file from a remote server
 
 To decode a JSON file hosted on a remote server, or built from a webservice or from a REST API, you can use the component [@autoit-gui-skeleton/ags-component-http-request](https://www.npmjs.com/package/@autoit-gui-skeleton/ags-component-http-request) to make HTTP requests to a given URL.
 
@@ -199,7 +207,7 @@ To decode a JSON file hosted on a remote server, or built from a webservice or f
 Func json_decode_from_url($jsonfileUrl, $proxy = "")
 	Local $response = HttpGET($jsonfileUrl, Default, $proxy)
 	If (@error) Then
-		Return SetError(@error, $response, _ 
+		Return SetError(@error, $response, _
 		    "Unable to get json file on server " & $jsonfileUrl & ".")
 	EndIf
 	Local $data = $response.ResponseText
@@ -227,9 +235,9 @@ According to Ward's documentation, you can use `Json_Encode($Data, $Option = 0, 
 > - Binary will be converted to string in UTF8 encoding.
 > - Ptr will be converted to number
 > - Other unsupported types like 2D array, dllstruct or object will be encoded into null.
-> 
+>
 > `$Option` is bitmask consisting following constant:
-> 
+>
 > - `$JSON_UNESCAPED_ASCII` ; Don't escape ascii charcters between chr(1) ~ chr(0x1f)
 > - `$JSON_UNESCAPED_UNICODE` ; Encode multibyte Unicode characters literally
 > - `$JSON_UNESCAPED_SLASHES` ; Don't escape /
@@ -258,15 +266,16 @@ ConsoleWrite($jsonEncoded)
 <br/>
 
 ## About
- 
-### Thanks
+
+### Acknowledgments
 
 Acknowledgments for [Ward's](https://www.autoitscript.com/forum/profile/10768-ward/) work and its library [JSON.au3](https://www.autoitscript.com/forum/topic/148114-a-non-strict-json-udf-jsmn/)
 
+
 ### Contributing
- 
+
 Comments, pull-request & stars are always welcome !
- 
+
 ### License
- 
+
 Copyright (c) 2018 by [v20100v](https://github.com/v20100v). Released under the MIT license.

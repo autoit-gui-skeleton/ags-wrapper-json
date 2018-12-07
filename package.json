@@ -1,7 +1,7 @@
 {
   "name": "@autoit-gui-skeleton/ags-wrapper-json",
   "version": "1.0.3",
-  "description": "A simple wrapper of the library JSON.au3, created by Ward, for simplifiy handling dependencies of an AutoIt project built with AGS framework.",
+  "description": "AGS package for the library JSON.au3, created by Ward. This library allows us to decode/encode JSON with the minimalistic JSON parser jsmn.",
   "author": "v20100v <vb20100bv@gmail.com> (https://github.com/v20100v)",
   "contributors": [
     "v20100v <vb20100bv@gmail.com> (https://github.com/v20100v)"
@@ -22,7 +22,9 @@
   "bugs": {
     "url": "https://github.com/autoit-gui-skeleton/ags-wrapper-json/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@autoit-gui-skeleton/ags-wrapper-binary-call": "^1.0.2"
+  },
   "AGS": {
     "framework": {
       "version": "1.0.0"
