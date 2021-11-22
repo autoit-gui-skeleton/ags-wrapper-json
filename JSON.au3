@@ -15,11 +15,10 @@
 ;           TheXMan - Json_ObjGetItems and some Json_Dump Fixes.
 ; ============================================================================================================================
 
-
+#include-once
 
 ; Resolution of daughter dependencies
 #include "../ags-wrapper-binary-call/BinaryCall.au3"
-
 
 
 ; ============================================================================================================================
@@ -80,7 +79,7 @@ Func __Jsmn_RuntimeLoader($ProcName = "")
 		If @error Then Exit MsgBox(16, "Json", "Startup Failure!")
 	EndIf
 	If $ProcName Then Return DllStructGetData($SymbolList, $ProcName)
-EndFunc   ;==>__Jsmn_RuntimeLoader
+EndFunc
 
 Func Json_StringEncode($String, $Option = 0)
 	Static $Json_StringEncode = __Jsmn_RuntimeLoader("json_string_encode")
@@ -88,7 +87,7 @@ Func Json_StringEncode($String, $Option = 0)
 	Local $Buffer = DllStructCreate("wchar[" & $Length & "]")
 	Local $Ret = DllCallAddress("int:cdecl", $Json_StringEncode, "wstr", $String, "ptr", DllStructGetPtr($Buffer), "uint", $Length, "int", $Option)
 	Return SetError($Ret[0], 0, DllStructGetData($Buffer, 1))
-EndFunc   ;==>Json_StringEncode
+EndFunc
 
 Func Json_StringDecode($String)
 	Static $Json_StringDecode = __Jsmn_RuntimeLoader("json_string_decode")
@@ -96,7 +95,7 @@ Func Json_StringDecode($String)
 	Local $Buffer = DllStructCreate("wchar[" & $Length & "]")
 	Local $Ret = DllCallAddress("int:cdecl", $Json_StringDecode, "wstr", $String, "ptr", DllStructGetPtr($Buffer), "uint", $Length)
 	Return SetError($Ret[0], 0, DllStructGetData($Buffer, 1))
-EndFunc   ;==>Json_StringDecode
+EndFunc
 
 Func Json_Decode($Json, $InitTokenCount = 1000)
 	Static $Jsmn_Init = __Jsmn_RuntimeLoader("jsmn_init"), $Jsmn_Parse = __Jsmn_RuntimeLoader("jsmn_parse")
@@ -112,7 +111,7 @@ Func Json_Decode($Json, $InitTokenCount = 1000)
 
 	Local $Next = 0
 	Return SetError($Ret[0], 0, _Json_Token($Json, DllStructGetPtr($TokenList), $Next))
-EndFunc   ;==>Json_Decode
+EndFunc
 
 Func _Json_Token(ByRef $Json, $Ptr, ByRef $Next)
 	If $Next = -1 Then Return Null
@@ -169,15 +168,15 @@ Func _Json_Token(ByRef $Json, $Ptr, ByRef $Next)
 		Case 3 ; Json_STRING
 			Return Json_StringDecode(StringMid($Json, $Start + 1, $End - $Start))
 	EndSwitch
-EndFunc   ;==>_Json_Token
+EndFunc
 
 Func Json_IsObject(ByRef $Object)
 	Return (IsObj($Object) And ObjName($Object) = "Dictionary")
-EndFunc   ;==>Json_IsObject
+EndFunc
 
 Func Json_IsNull(ByRef $Null)
 	Return IsKeyword($Null) Or (Not IsObj($Null) And VarGetType($Null) = "Object")
-EndFunc   ;==>Json_IsNull
+EndFunc
 
 Func Json_Encode_Compact($Data, $Option = 0)
 	Local $Json = ""
@@ -218,7 +217,7 @@ Func Json_Encode_Compact($Data, $Option = 0)
 		Case Else ; Keyword, DllStruct, Object
 			Return "null"
 	EndSelect
-EndFunc   ;==>Json_Encode_Compact
+EndFunc
 
 Func Json_Encode_Pretty($Data, $Option, $Indent, $ArraySep, $ObjectSep, $ColonSep, $ArrayCRLF = Default, $ObjectCRLF = Default, $NextIdent = "")
 	Local $ThisIdent = $NextIdent, $Json = "", $String = "", $Match = "", $Keys = ""
@@ -277,7 +276,7 @@ Func Json_Encode_Pretty($Data, $Option, $Indent, $ArraySep, $ObjectSep, $ColonSe
 			Return Json_Encode_Compact($Data, $Option)
 
 	EndSelect
-EndFunc   ;==>Json_Encode_Pretty
+EndFunc
 
 Func Json_Encode($Data, $Option = 0, $Indent = Default, $ArraySep = Default, $ObjectSep = Default, $ColonSep = Default)
 	If BitAND($Option, $JSON_PRETTY_PRINT) Then
@@ -318,52 +317,54 @@ Func Json_Encode($Data, $Option = 0, $Indent = Default, $ArraySep = Default, $Ob
 	Else
 		Return Json_Encode_Compact($Data, $Option)
 	EndIf
-EndFunc   ;==>Json_Encode
+EndFunc
 
 Func Json_ObjCreate()
 	Local $Object = ObjCreate('Scripting.Dictionary')
 	$Object.CompareMode = 0
 	Return $Object
-EndFunc   ;==>Json_ObjCreate
+EndFunc
 
 Func Json_ObjPut(ByRef $Object, $Key, $Value)
 	$Key = String($Key)
 	If $Object.Exists($Key) Then $Object.Remove($Key)
 	$Object.Add($Key, $Value)
-EndFunc   ;==>Json_ObjPut
+EndFunc
 
 Func Json_ObjGet(ByRef $Object, $Key)
 	$Key = String($Key)
 	If $Object.Exists($Key) Then Return $Object.Item($Key)
 	Return SetError(1, 0, '')
-EndFunc   ;==>Json_ObjGet
+EndFunc
 
 Func Json_ObjDelete(ByRef $Object, $Key)
 	$Key = String($Key)
 	If $Object.Exists($Key) Then $Object.Remove($Key)
-EndFunc   ;==>Json_ObjDelete
+EndFunc
 
 Func Json_ObjExists(ByRef $Object, $Key)
 	Return $Object.Exists(String($Key))
-EndFunc   ;==>Json_ObjExists
+EndFunc
 
 Func Json_ObjGetCount(ByRef $Object)
 	Return $Object.Count
-EndFunc   ;==>Json_ObjGetCount
+EndFunc
 
 Func Json_ObjGetKeys(ByRef $Object)
 	Return $Object.Keys()
-EndFunc   ;==>Json_ObjGetKeys
+EndFunc
 
 Func Json_ObjGetItems(ByRef $Object)
 	Return $Object.Items()
-EndFunc   ;==>Json_ObjGetItems
+EndFunc
 
 Func Json_ObjClear(ByRef $Object)
 	Return $Object.RemoveAll()
-EndFunc   ;==>Json_ObjClear
+EndFunc
 
+; ----------------------------------------------------------------------------------------------------------------------
 ; Both dot notation and square bracket notation can be supported
+; ----------------------------------------------------------------------------------------------------------------------
 Func Json_Put(ByRef $Var, $Notation, $Data, $CheckExists = False)
 	Local $Ret = 0, $Item = "", $Error = 0
 	Local $Match = ""
@@ -418,9 +419,11 @@ Func Json_Put(ByRef $Var, $Notation, $Data, $CheckExists = False)
 		EndIf
 	EndIf
 	Return SetError(2, 0, False) ; invalid notation
-EndFunc   ;==>Json_Put
+EndFunc
 
+; ----------------------------------------------------------------------------------------------------------------------
 ; Both dot notation and square bracket notation can be supported
+; ----------------------------------------------------------------------------------------------------------------------
 Func Json_Get(ByRef $Var, $Notation)
 	Local $Match = StringRegExp($Notation, "(^\[([^\]]+)\])|(^\.([^\.\[]+))", 3)
 	If IsArray($Match) Then
@@ -447,9 +450,11 @@ Func Json_Get(ByRef $Var, $Notation)
 		Return SetError(@error, 0, $Ret)
 	EndIf
 	Return SetError(2, 0, "") ; invalid notation
-EndFunc   ;==>Json_Get
+EndFunc
 
+; ----------------------------------------------------------------------------------------------------------------------
 ; List all JSON keys and their value to the Console
+; ----------------------------------------------------------------------------------------------------------------------
 Func Json_Dump($Json, $InitTokenCount = 1000)
 	Static $Jsmn_Init = __Jsmn_RuntimeLoader("jsmn_init"), $Jsmn_Parse = __Jsmn_RuntimeLoader("jsmn_parse")
 	If $Json = "" Then $Json = '""'
@@ -464,7 +469,7 @@ Func Json_Dump($Json, $InitTokenCount = 1000)
 
 	Local $Next = 0
 	_Json_TokenDump($Json, DllStructGetPtr($TokenList), $Next)
-EndFunc   ;==>Json_Dump
+EndFunc
 
 Func _Json_TokenDump(ByRef $Json, $Ptr, ByRef $Next, $ObjPath = "")
 	If $Next = -1 Then Return Null
@@ -530,4 +535,4 @@ Func _Json_TokenDump(ByRef $Json, $Ptr, ByRef $Next, $ObjPath = "")
 			Local $LastKey = Json_StringDecode(StringMid($Json, $Start + 1, $End - $Start))
 			Return $LastKey
 	EndSwitch
-EndFunc   ;==>_Json_TokenDump
+EndFunc

@@ -1,6 +1,6 @@
 {
   "name": "@autoit-gui-skeleton/ags-wrapper-json",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "AGS package for the library JSON.au3, created by Ward. This library allows us to decode/encode JSON with the minimalistic JSON parser jsmn.",
   "author": "v20100v <vb20100bv@gmail.com> (https://github.com/v20100v)",
   "contributors": [
